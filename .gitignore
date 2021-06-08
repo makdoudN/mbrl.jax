@@ -1,0 +1,15 @@
+notes
+vendor
+**/*.pkl
+results
+outputs
+**/*_OUTPUTS
+**/__pycache__
+*.egg-info
+**/.ipynb_checkpoints
+**/logs
+**/coc.*
+**/*.csv
+**/*.log
+**/*.db
+
