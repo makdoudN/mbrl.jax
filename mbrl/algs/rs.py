@@ -14,7 +14,7 @@ from typing import Callable
 
 
 @partial(jit, static_argnums=(1, 2, 3, 4, 5))
-def trajectory_search(rng, horizon, action_dim, minval, maxval, action_type: str = 'continuous') -> jnp.DeviceArray:
+def trajectory_search(rng, horizon, action_dim, minval = None, maxval = None, action_type: str = 'continuous') -> jnp.DeviceArray:
     """ Generate Sequence of action of length `horizon`"""
     if action_type == 'continuous':
         x = jax.random.uniform(
@@ -24,7 +24,7 @@ def trajectory_search(rng, horizon, action_dim, minval, maxval, action_type: str
     if action_type == 'discrete':
         # We considere the action set: {0, .., maxval}
         chex.assert_type(maxval, int)
-        x = jax.random.choice(rng, maxval, shape=(horizon,))
+        x = jax.random.choice(rng, action_dim, shape=(horizon,))
     return x
 
 
