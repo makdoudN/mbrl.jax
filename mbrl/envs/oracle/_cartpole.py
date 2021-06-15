@@ -21,9 +21,6 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 
-from deluca.envs.core import Env
-from deluca.utils import Random
-
 
 env_params = dict(
     force_mag=10.0,
