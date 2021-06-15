@@ -14,7 +14,13 @@ from typing import Callable
 
 
 @partial(jit, static_argnums=(1, 2, 3, 4, 5))
-def trajectory_search(rng, horizon, action_dim, minval = None, maxval = None, action_type: str = 'continuous') -> jnp.DeviceArray:
+def trajectory_search(
+    rng, horizon,
+    action_dim,
+    minval = None,
+    maxval = None,
+    action_type: str = 'continuous'
+) -> jnp.DeviceArray:
     """ Generate Sequence of action of length `horizon`"""
     chex.assert_type(action_dim, int)
     if action_type == 'continuous':
