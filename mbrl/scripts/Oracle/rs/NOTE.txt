@@ -1,0 +1,5 @@
+-- Question
+
+- Influence of the discount factor
+- Influence of the Population
+- Influence of the Horizon

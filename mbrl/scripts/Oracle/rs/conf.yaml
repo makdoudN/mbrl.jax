@@ -1,0 +1,21 @@
+# -- Base
+seed: 42
+epochs: 20
+logdir: outputs
+name: RandomShooting
+
+# -- Environment
+env: _cartpole
+env_root: mbrl.envs.oracle.${env}
+
+# -- Random Shooting
+discount: 0.99
+horizon: 20
+population: 2000
+
+
+hydra:
+  run:
+    dir: outputs/${name}/${env}/${now:%Y.%m.%d}/${now:%H.%M.%S}-seed-${seed}
+
+
