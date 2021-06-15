@@ -23,7 +23,7 @@ def trajectory_search(rng, horizon, action_dim, minval = None, maxval = None, ac
         )
     if action_type == 'discrete':
         # We considere the action set: {0, .., maxval}
-        chex.assert_type(maxval, int)
+        chex.assert_type(action_dim, int)
         x = jax.random.choice(rng, action_dim, shape=(horizon,))
     return x
 
