@@ -6,6 +6,7 @@ import jax.numpy as jnp
 import haiku as hk
 import distrax
 
+from tensorflow_probability.substrates import jax as tfp
 
 
 def mlp_deterministic(
@@ -35,13 +36,13 @@ def mlp_deterministic(
 def mlp_multivariate_normal_diag(
     output_size: int,
     hidden_sizes=[64, 64],
-    activation="gelu",
+    activation="silu",
     logstd_min=-10.0,
-    logstd_max=2.0,
+    logstd_max=1.0,
     fixed_std_value: float = 1.0,
     fixed_std: bool = False,
-    state_dependent_std: bool = False,
-    use_tanh_bijector: bool = True,
+    state_dependent_std: bool = True,
+    use_tanh_bijector: bool = False,
 ):
     if isinstance(activation, str):
         activation = getattr(jax.nn, activation)
@@ -72,6 +73,8 @@ def mlp_multivariate_normal_diag(
             std = jnp.ones(shape=(output_size,)) * fixed_std_value
         mean = hk.Linear(output_size, w_init=hk.initializers.Orthogonal())(z)
 
+        return tfp.distributions.MultivariateNormalDiag(loc=mean, scale_diag=std * temperature)
+        """
         distribution = distrax.MultivariateNormalDiag(
             loc=mean, scale_diag=std * temperature
         )
@@ -85,5 +88,6 @@ def mlp_multivariate_normal_diag(
                 bijector=distrax.Block(bijector, ndims=1),
             )
         return distribution
+        """
 
     return forward
