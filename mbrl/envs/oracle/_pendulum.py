@@ -14,6 +14,7 @@
 import jax
 import jax.numpy as jnp
 import numpy as np
+from functools import partial
 from os import path
 
 env_params = dict(
@@ -60,9 +61,15 @@ def dynamic(state, action, env_params):
     return jnp.reshape(jnp.array([newth, newthdot]), (2,))
 
 
-def reward_fn(x, u):
-    cost = angle_normalize(x[0]) ** 2 + 0.1 * (u[0] ** 2)
-    return -cost
+def _reward_fn(observation, u, params):
+    th = jnp.arctan2(observation[1], observation[0])
+    thdot = observation[2]
+    u = jnp.clip(u, -params["max_torque"], params["max_torque"])
+    costs = angle_normalize(th) ** 2 + 0.1 * thdot ** 2 + 0.001 * (u ** 2)
+    return -costs[0].squeeze()
+
+
+reward_fn = partial(_reward_fn, params=env_params)
 
 
 def reset_fn(rng, env_params):
