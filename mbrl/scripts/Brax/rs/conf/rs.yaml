@@ -1,0 +1,15 @@
+# Random shooting base configuration.
+seed: 42
+name: 'sanity-check'
+env: halfcheetah
+discount: 0.99
+niters: 5
+
+rs:
+  horizon: 20
+  population: 2000
+
+hydra:
+  run:
+    dir: outputs/${name}/${env}/${now:%Y.%m.%d}/${now:%H.%M.%S}-${seed}
+

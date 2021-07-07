@@ -1,0 +1,13 @@
+fmodel_type: 'P'
+optim: adabelief
+optim_kwargs:
+  learning_rate: 1e-3
+kwargs:
+  use_norm: true
+  use_residual: true
+  alpha_norm: 0.5
+  action_type: discrete 
+fmodel_kwargs:
+  hidden_sizes: [64 ,64]
+
+

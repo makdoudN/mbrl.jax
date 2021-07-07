@@ -5,7 +5,7 @@ logdir: outputs
 name: RandomShooting
 
 # -- Environment
-env: _cartpole
+env: _pendulum
 env_root: mbrl.envs.oracle.${env}
 
 # -- Random Shooting

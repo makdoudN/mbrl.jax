@@ -1,0 +1,16 @@
+seed: 42
+niters: 10
+nepochs: 20
+
+# -- Planning Approach
+horizon: 20
+population: 2000
+
+# -- Environment
+env: _pendulum
+env_root: mbrl.envs.oracle.${env}
+
+defaults:
+  - fmodel: categorical
+
+
